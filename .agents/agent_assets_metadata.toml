@@ -1,0 +1,32 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "FVTYWxGk1IAk71PtmgRGq"
+uri = "file://artifacts/o-tinh-house/public/images/hero-bg.png"
+type = "image"
+title = "Restaurant interior hero background"
+
+[[generated]]
+id = "LaLfhMjnH1lrXAiw4MMoU"
+uri = "file://artifacts/o-tinh-house/public/images/bun-xao.png"
+type = "image"
+title = "Bún Xáo Tủy Bò soup"
+
+[[generated]]
+id = "_ksTyUvTRDQtQw_jZ6yLD"
+uri = "file://artifacts/o-tinh-house/public/images/banh-beo.png"
+type = "image"
+title = "Bánh Bèo Chén cakes"
+
+[[generated]]
+id = "9zasg9L83HbzAmVm9xBnF"
+uri = "file://artifacts/o-tinh-house/public/images/beef-ribs.png"
+type = "image"
+title = "Grilled Beef Short Ribs"
+
+[[generated]]
+id = "Fk90Zq_pBI5okWb2BK6mT"
+uri = "file://artifacts/o-tinh-house/public/images/chicken-wings.png"
+type = "image"
+title = "Vietnamese Chicken Wings"
