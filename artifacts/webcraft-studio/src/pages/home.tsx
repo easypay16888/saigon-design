@@ -170,7 +170,7 @@ export default function Home() {
               { img: portRE, title: 'portfolio_item6' },
             ].map((p, i) => (
               <div key={i} className="group relative rounded-3xl overflow-hidden aspect-[4/3] bg-gray-100 border border-gray-200 shadow-sm hover:shadow-xl transition-shadow duration-300" data-testid={`portfolio-item-${i}`}>
-                <img src={p.img} alt="Portfolio item" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src={p.img} alt={`Saigon Design - ${t(p.title as any)}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-8">
                   <h3 className="text-2xl font-bold text-white">{t(p.title as any)}</h3>
                 </div>

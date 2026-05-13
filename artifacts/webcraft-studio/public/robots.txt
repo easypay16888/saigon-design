@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://saigon.design/webcraft/sitemap.xml
