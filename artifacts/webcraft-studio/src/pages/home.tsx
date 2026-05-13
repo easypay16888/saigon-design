@@ -12,30 +12,18 @@ import portRE from "@/assets/portfolio-realestate.png";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-function SaigonDesignLogo({ size = 36 }: { size?: number }) {
+function SaigonDesignLogo({ size = 32 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="sdGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#6366f1" />
-          <stop offset="1" stopColor="#a855f7" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M5 3 L18 3 Q33 3 33 18 Q33 33 18 33 L5 33 Z"
-        stroke="url(#sdGrad)"
-        strokeWidth="2.5"
-        fill="none"
-        strokeLinejoin="round"
-      />
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="32" height="32" rx="7" fill="#1a1a2e" />
       <text
-        x="17"
-        y="24"
-        fontSize="14"
+        x="16"
+        y="22"
+        fontSize="17"
         fontWeight="900"
         textAnchor="middle"
-        fill="url(#sdGrad)"
-        fontFamily="system-ui, sans-serif"
+        fill="white"
+        fontFamily="system-ui, -apple-system, sans-serif"
       >
         S
       </text>
@@ -72,26 +60,25 @@ export default function Home() {
       </nav>
 
       {/* HERO SECTION */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 flex flex-col items-center justify-center text-center overflow-hidden bg-gray-950">
-        <div className="absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-30 mix-blend-screen" style={{ backgroundImage: `url(${heroBg})` }}></div>
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-gray-950/60 via-gray-950/80 to-gray-950"></div>
+      <section className="relative pt-36 pb-24 md:pt-52 md:pb-36 px-6 flex flex-col items-center justify-center text-center overflow-hidden bg-white">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_rgba(99,102,241,0.08)_0%,_transparent_70%)]"></div>
 
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000" data-testid="hero-badge">
-          <Rocket className="w-4 h-4 text-purple-400" />
-          <span className="text-sm font-medium text-white/90">{t('hero_subtitle')}</span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000" data-testid="hero-badge">
+          <Rocket className="w-4 h-4 text-indigo-500" />
+          <span className="text-sm font-medium text-indigo-700">{t('hero_subtitle')}</span>
         </div>
 
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black max-w-4xl tracking-tight leading-[1.1] mb-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150 text-white">
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black max-w-4xl tracking-tight leading-[1.1] mb-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150 text-gray-900">
           {t('hero_slogan')}
         </h1>
 
         <div className="flex flex-col sm:flex-row items-center gap-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
-          <Button size="lg" className="rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold px-8 py-6 text-lg border-none shadow-[0_0_40px_-10px_rgba(168,85,247,0.6)]" asChild data-testid="hero-cta-start">
+          <Button size="lg" className="rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold px-8 py-6 text-lg border-none shadow-[0_8px_30px_-8px_rgba(99,102,241,0.5)]" asChild data-testid="hero-cta-start">
             <a href="#contact">
               {t('hero_cta1')} <ArrowRight className="w-5 h-5 ml-2" />
             </a>
           </Button>
-          <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white/30 text-white hover:bg-white/10 hover:text-white px-8 py-6 text-lg" asChild data-testid="hero-cta-work">
+          <Button size="lg" variant="outline" className="rounded-full border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900 px-8 py-6 text-lg" asChild data-testid="hero-cta-work">
             <a href="#portfolio">
               {t('hero_cta2')}
             </a>
