@@ -16,7 +16,7 @@ export function LanguageSwitcher() {
 
   return (
     <Select value={language} onValueChange={(val) => setLanguage(val as Language)}>
-      <SelectTrigger className="w-[140px] bg-transparent border-none shadow-none font-medium focus:ring-0 focus:ring-offset-0 hover:bg-white/10" data-testid="language-switcher">
+      <SelectTrigger className="w-[140px] bg-transparent border-none shadow-none font-medium focus:ring-0 focus:ring-offset-0 hover:bg-gray-100 text-gray-700" data-testid="language-switcher">
         <SelectValue>
           <span className="flex items-center gap-2">
             <span>{languageOptions.find(o => o.value === language)?.flag}</span>
