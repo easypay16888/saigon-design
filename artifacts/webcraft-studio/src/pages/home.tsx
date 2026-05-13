@@ -12,14 +12,18 @@ import portRE from "@/assets/portfolio-realestate.png";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-function SaigonDesignLogo({ size = 32 }: { size?: number }) {
+function SaigonDesignLogo({ size = 36 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="32" height="32" rx="7" fill="#1a1a2e" />
+    <svg width={size} height={size} viewBox="0 0 32 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* D shape: vertical bar on left + semicircle on right */}
+      <path
+        d="M 3,1 L 3,35 L 14,35 Q 29,35 29,18 Q 29,1 14,1 Z"
+        fill="#1a1a2e"
+      />
       <text
-        x="16"
-        y="22"
-        fontSize="17"
+        x="15"
+        y="24"
+        fontSize="15"
         fontWeight="900"
         textAnchor="middle"
         fill="white"
