@@ -21,8 +21,8 @@ function SaigonDesignLogo({ size = 34 }: { size?: number }) {
         fill="#1a1a2e"
       />
       <text
-        x="16"
-        y="16"
+        x="14"
+        y="14"
         fontSize="20"
         fontWeight="900"
         textAnchor="middle"
