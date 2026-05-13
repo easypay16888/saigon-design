@@ -21,12 +21,12 @@ function SaigonDesignLogo({ size = 34 }: { size?: number }) {
         fill="#1a1a2e"
       />
       <text
-        x="17"
-        y="23"
+        x="16"
+        y="16"
         fontSize="20"
         fontWeight="900"
         textAnchor="middle"
-        dominantBaseline="middle"
+        dominantBaseline="central"
         fill="white"
         fontFamily="system-ui, -apple-system, sans-serif"
       >
