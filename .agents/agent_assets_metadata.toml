@@ -30,3 +30,45 @@ id = "Fk90Zq_pBI5okWb2BK6mT"
 uri = "file://artifacts/o-tinh-house/public/images/chicken-wings.png"
 type = "image"
 title = "Vietnamese Chicken Wings"
+
+[[generated]]
+id = "03nvN311U584iM-N_mZhe"
+uri = "file://artifacts/webcraft-studio/src/assets/hero-bg.png"
+type = "image"
+title = "Hero abstract mesh gradient"
+
+[[generated]]
+id = "aFYOJZpI-6jSrbLzO2xO4"
+uri = "file://artifacts/webcraft-studio/src/assets/portfolio-restaurant.png"
+type = "image"
+title = "Vietnamese restaurant website mock"
+
+[[generated]]
+id = "LqPL3foDcfb_6T9Oy9XfL"
+uri = "file://artifacts/webcraft-studio/src/assets/portfolio-fashion.png"
+type = "image"
+title = "Fashion boutique website mock"
+
+[[generated]]
+id = "4dY062KoA9h7R7_DbzqjX"
+uri = "file://artifacts/webcraft-studio/src/assets/portfolio-hotel.png"
+type = "image"
+title = "Hotel website mock"
+
+[[generated]]
+id = "bfIa4xPZ-YMpPRBUzb8U1"
+uri = "file://artifacts/webcraft-studio/src/assets/portfolio-cafe.png"
+type = "image"
+title = "Cafe website mock"
+
+[[generated]]
+id = "Z5rj4vmapmqcJnJ_kL7GW"
+uri = "file://artifacts/webcraft-studio/src/assets/portfolio-spa.png"
+type = "image"
+title = "Spa website mock"
+
+[[generated]]
+id = "pw518tHL6VCQFz05PJSiv"
+uri = "file://artifacts/webcraft-studio/src/assets/portfolio-realestate.png"
+type = "image"
+title = "Real estate website mock"

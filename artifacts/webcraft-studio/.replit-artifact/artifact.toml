@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/webcraft/"
+title = "WebCraft Studio"
+version = "1.0.0"
+id = "artifacts/webcraft-studio"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/webcraft/" ]
+localPort = 25418
+
+[services.development]
+run = "pnpm --filter @workspace/webcraft-studio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/webcraft-studio", "run", "build" ]
+publicDir = "artifacts/webcraft-studio/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25418"
+BASE_PATH = "/webcraft/"
