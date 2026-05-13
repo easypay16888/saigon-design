@@ -191,23 +191,108 @@ export default function Home() {
       {/* PRICING */}
       <section id="pricing" className="py-24 px-6 bg-gray-50 border-y border-gray-200">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center text-gray-900">{t('pricing_title')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { t_key: 'pricing_tier1', p_key: 'pricing_tier1_price', d_key: 'pricing_tier1_desc', highlight: false },
-              { t_key: 'pricing_tier2', p_key: 'pricing_tier2_price', d_key: 'pricing_tier2_desc', highlight: true },
-              { t_key: 'pricing_tier3', p_key: 'pricing_tier3_price', d_key: 'pricing_tier3_desc', highlight: false },
-            ].map((tier, i) => (
-              <div key={i} className={`p-8 rounded-[2rem] flex flex-col border ${tier.highlight ? 'bg-gradient-to-b from-indigo-600 to-purple-700 border-indigo-500 relative transform md:-translate-y-4 shadow-2xl shadow-indigo-200/60 text-white' : 'bg-white border-gray-200 shadow-sm text-gray-900'}`} data-testid={`pricing-tier-${i}`}>
-                {tier.highlight && <div className="absolute top-0 inset-x-0 h-1 bg-white/30 rounded-t-[2rem]"></div>}
-                <h3 className={`text-2xl font-bold mb-2 ${tier.highlight ? 'text-white' : 'text-gray-900'}`}>{t(tier.t_key as any)}</h3>
-                <div className={`text-3xl font-black mb-4 ${tier.highlight ? 'text-white' : 'bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent'}`}>
-                  {t(tier.p_key as any)}
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-center text-gray-900">{t('pricing_title')}</h2>
+          <p className="text-center text-gray-500 text-sm mb-16 max-w-xl mx-auto">{t('pricing_note' as any)}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            {([
+              {
+                t_key: 'pricing_tier1',
+                p_key: 'pricing_tier1_price',
+                d_key: 'pricing_tier1_desc',
+                del_key: 'pricing_tier1_delivery',
+                features: ['pricing_tier1_f1','pricing_tier1_f2','pricing_tier1_f3','pricing_tier1_f4','pricing_tier1_f5','pricing_tier1_f6'],
+                highlight: false,
+              },
+              {
+                t_key: 'pricing_tier2',
+                p_key: 'pricing_tier2_price',
+                d_key: 'pricing_tier2_desc',
+                del_key: 'pricing_tier2_delivery',
+                features: ['pricing_tier2_f1','pricing_tier2_f2','pricing_tier2_f3','pricing_tier2_f4','pricing_tier2_f5','pricing_tier2_f6','pricing_tier2_f7'],
+                highlight: true,
+              },
+              {
+                t_key: 'pricing_tier3',
+                p_key: 'pricing_tier3_price',
+                d_key: 'pricing_tier3_desc',
+                del_key: 'pricing_tier3_delivery',
+                features: ['pricing_tier3_f1','pricing_tier3_f2','pricing_tier3_f3','pricing_tier3_f4','pricing_tier3_f5','pricing_tier3_f6','pricing_tier3_f7','pricing_tier3_f8'],
+                highlight: false,
+              },
+            ] as const).map((tier, i) => (
+              <div
+                key={i}
+                className={`rounded-[2rem] flex flex-col border overflow-hidden ${
+                  tier.highlight
+                    ? 'bg-gradient-to-b from-indigo-600 to-purple-700 border-indigo-500 shadow-2xl shadow-indigo-200/60 md:-translate-y-4 relative'
+                    : 'bg-white border-gray-200 shadow-sm'
+                }`}
+                data-testid={`pricing-tier-${i}`}
+              >
+                {/* Popular badge */}
+                {tier.highlight && (
+                  <div className="text-center py-2 bg-white/20 text-white text-xs font-bold uppercase tracking-widest">
+                    {t('pricing_popular' as any)}
+                  </div>
+                )}
+
+                <div className="p-8 flex flex-col flex-1">
+                  {/* Tier name */}
+                  <h3 className={`text-xl font-bold mb-1 ${tier.highlight ? 'text-white' : 'text-gray-900'}`}>
+                    {t(tier.t_key as any)}
+                  </h3>
+
+                  {/* Description */}
+                  <p className={`text-sm mb-5 ${tier.highlight ? 'text-white/70' : 'text-gray-500'}`}>
+                    {t(tier.d_key as any)}
+                  </p>
+
+                  {/* Price */}
+                  <div className={`text-3xl font-black mb-2 ${tier.highlight ? 'text-white' : 'bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent'}`}>
+                    {t(tier.p_key as any)}
+                  </div>
+
+                  {/* Delivery badge */}
+                  <div className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full mb-6 w-fit ${
+                    tier.highlight ? 'bg-white/20 text-white' : 'bg-indigo-50 text-indigo-600'
+                  }`}>
+                    <Rocket className="w-3 h-3" />
+                    {t('pricing_delivery' as any)}: {t(tier.del_key as any)}
+                  </div>
+
+                  {/* Divider */}
+                  <div className={`h-px mb-6 ${tier.highlight ? 'bg-white/20' : 'bg-gray-100'}`} />
+
+                  {/* Includes label */}
+                  <p className={`text-xs font-semibold uppercase tracking-widest mb-4 ${tier.highlight ? 'text-white/60' : 'text-gray-400'}`}>
+                    {t('pricing_includes' as any)}
+                  </p>
+
+                  {/* Feature list */}
+                  <ul className="space-y-3 mb-8 flex-1">
+                    {tier.features.map((fk) => (
+                      <li key={fk} className="flex items-start gap-3">
+                        <CheckCircle2 className={`w-4 h-4 mt-0.5 shrink-0 ${tier.highlight ? 'text-white/80' : 'text-indigo-500'}`} />
+                        <span className={`text-sm leading-snug ${tier.highlight ? 'text-white/90' : 'text-gray-700'}`}>
+                          {t(fk as any)}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA */}
+                  <Button
+                    asChild
+                    className={`w-full rounded-xl py-6 font-semibold text-sm ${
+                      tier.highlight
+                        ? 'bg-white text-indigo-700 hover:bg-white/90'
+                        : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500 border-none'
+                    }`}
+                    data-testid={`pricing-select-${i}`}
+                  >
+                    <a href="#contact">{t('pricing_cta' as any)}</a>
+                  </Button>
                 </div>
-                <p className={`mb-8 flex-1 text-sm leading-relaxed ${tier.highlight ? 'text-white/80' : 'text-gray-500'}`}>{t(tier.d_key as any)}</p>
-                <Button className={`w-full rounded-xl py-6 font-semibold ${tier.highlight ? 'bg-white text-indigo-700 hover:bg-white/90' : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-500 hover:to-purple-500'}`} data-testid={`pricing-select-${i}`}>
-                  {t('hero_cta1')}
-                </Button>
               </div>
             ))}
           </div>
