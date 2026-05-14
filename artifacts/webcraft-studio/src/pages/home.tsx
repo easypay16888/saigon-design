@@ -40,10 +40,10 @@ export default function Home() {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-[100dvh] w-full bg-white text-gray-900 flex flex-col font-sans overflow-x-hidden">
+    <div className="grain-overlay min-h-[100dvh] w-full bg-[#F7F8FD] text-gray-900 flex flex-col font-sans overflow-x-hidden">
 
       {/* NAVBAR */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-[#F7F8FD]/80 backdrop-blur-xl border-b border-indigo-100/60">
         <div className="flex items-center gap-2.5">
           <SaigonDesignLogo size={34} />
           <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
@@ -65,37 +65,46 @@ export default function Home() {
       </nav>
 
       {/* HERO SECTION */}
-      <section className="relative pt-36 pb-24 md:pt-52 md:pb-36 px-6 flex flex-col items-center justify-center text-center overflow-hidden bg-white">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_rgba(99,102,241,0.08)_0%,_transparent_70%)]"></div>
+      <section className="relative pt-36 pb-28 md:pt-52 md:pb-40 px-6 flex flex-col items-center justify-center text-center overflow-hidden bg-[#F7F8FD]">
+        {/* Aurora blobs */}
+        <div className="absolute -top-32 -left-32 w-[600px] h-[600px] bg-indigo-300/20 rounded-full blur-[130px] pointer-events-none" />
+        <div className="absolute -top-10 -right-20 w-[450px] h-[450px] bg-purple-300/15 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-pink-200/15 rounded-full blur-[100px] pointer-events-none" />
+        {/* Dot grid */}
+        <div className="dot-grid absolute inset-0 opacity-60 pointer-events-none" />
 
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000" data-testid="hero-badge">
-          <Rocket className="w-4 h-4 text-indigo-500" />
-          <span className="text-sm font-medium text-indigo-700">{t('hero_subtitle')}</span>
-        </div>
+        <div className="relative z-10 flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 border border-indigo-200/60 backdrop-blur-sm mb-8 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-1000" data-testid="hero-badge">
+            <Rocket className="w-4 h-4 text-indigo-500" />
+            <span className="text-sm font-medium text-indigo-700">{t('hero_subtitle')}</span>
+          </div>
 
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black max-w-4xl tracking-tight leading-[1.1] mb-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150 text-gray-900">
-          {t('hero_slogan')}
-        </h1>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black max-w-4xl tracking-tight leading-[1.08] mb-8 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-150 text-gray-900">
+            {t('hero_slogan')}
+          </h1>
 
-        <div className="flex flex-col sm:flex-row items-center gap-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
-          <Button size="lg" className="rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold px-8 py-6 text-lg border-none shadow-[0_8px_30px_-8px_rgba(99,102,241,0.5)]" asChild data-testid="hero-cta-start">
-            <a href="#contact">
-              {t('hero_cta1')} <ArrowRight className="w-5 h-5 ml-2" />
-            </a>
-          </Button>
-          <Button size="lg" variant="outline" className="rounded-full border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900 px-8 py-6 text-lg" asChild data-testid="hero-cta-work">
-            <a href="#portfolio">
-              {t('hero_cta2')}
-            </a>
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center gap-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+            <Button size="lg" className="rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold px-8 py-6 text-lg border-none shadow-[0_8px_40px_-8px_rgba(99,102,241,0.55)]" asChild data-testid="hero-cta-start">
+              <a href="#contact">
+                {t('hero_cta1')} <ArrowRight className="w-5 h-5 ml-2" />
+              </a>
+            </Button>
+            <Button size="lg" variant="outline" className="rounded-full bg-white/60 backdrop-blur-sm border-indigo-200/70 text-gray-700 hover:bg-white hover:border-indigo-300 px-8 py-6 text-lg" asChild data-testid="hero-cta-work">
+              <a href="#portfolio">
+                {t('hero_cta2')}
+              </a>
+            </Button>
+          </div>
         </div>
       </section>
 
       {/* SERVICES */}
-      <section id="services" className="py-24 px-6 bg-white">
+      <section id="services" className="py-28 px-6 bg-[#F7F8FD]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center text-gray-900">{t('services_title')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900">{t('services_title')}</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
               { icon: Smartphone, titleKey: 'services_item1' },
               { icon: Laptop, titleKey: 'services_item2' },
@@ -104,8 +113,8 @@ export default function Home() {
               { icon: HeartHandshake, titleKey: 'services_item5' },
               { icon: CheckCircle2, titleKey: 'services_item6' },
             ].map((s, i) => (
-              <div key={i} className="group p-8 rounded-3xl bg-gray-50 border border-gray-200 hover:border-indigo-200 hover:bg-indigo-50/50 transition-all duration-300" data-testid={`service-card-${i}`}>
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <div key={i} className="group p-8 rounded-2xl bg-white border border-indigo-100/80 hover:border-indigo-300/60 hover:shadow-[0_8px_40px_-12px_rgba(99,102,241,0.25)] transition-all duration-300" data-testid={`service-card-${i}`}>
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:from-indigo-200 group-hover:to-purple-200 transition-all duration-300">
                   <s.icon className="w-6 h-6 text-indigo-600" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900">{t(s.titleKey as any)}</h3>
@@ -116,23 +125,25 @@ export default function Home() {
       </section>
 
       {/* WHY CHOOSE US + PROCESS */}
-      <section id="process" className="py-24 px-6 bg-gray-50 border-y border-gray-200">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
+      <section id="process" className="py-28 px-6 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #eef0ff 0%, #f3f0ff 50%, #faf0ff 100%)'}}>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-200/30 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-200/30 rounded-full blur-[100px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center relative z-10">
           <div className="lg:w-1/2">
             <h2 className="text-3xl md:text-5xl font-bold mb-8 text-gray-900">{t('why_title')}</h2>
-            <div className="space-y-5">
+            <div className="space-y-4">
               {[1,2,3,4,5,6].map(num => (
-                <div key={num} className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="w-5 h-5 text-indigo-600" />
+                <div key={num} className="flex items-center gap-4 p-4 rounded-xl bg-white/60 backdrop-blur-sm border border-white/80">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shrink-0">
+                    <CheckCircle2 className="w-4 h-4 text-white" />
                   </div>
-                  <span className="text-lg text-gray-700">{t(`why_item${num}` as any)}</span>
+                  <span className="text-base font-medium text-gray-800">{t(`why_item${num}` as any)}</span>
                 </div>
               ))}
             </div>
           </div>
-          <div className="lg:w-1/2 w-full p-8 md:p-12 rounded-[2rem] bg-white border border-gray-200 shadow-lg relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-100/80 blur-[80px] rounded-full pointer-events-none"></div>
+          <div className="lg:w-1/2 w-full p-8 md:p-12 rounded-3xl bg-white/70 backdrop-blur-sm border border-white/90 shadow-[0_20px_60px_-15px_rgba(99,102,241,0.2)] relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-200/40 blur-[80px] rounded-full pointer-events-none" />
             <h3 className="text-2xl font-bold mb-8 relative z-10 text-gray-900">{t('process_title')}</h3>
             <div className="space-y-8 relative z-10">
               {[
@@ -142,10 +153,10 @@ export default function Home() {
                 { num: "04", key: 'process_step4' },
               ].map((step, i) => (
                 <div key={i} className="flex items-center gap-6" data-testid={`process-step-${i}`}>
-                  <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-br from-indigo-300 to-purple-300">
+                  <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 to-purple-500">
                     {step.num}
                   </div>
-                  <div className="h-px flex-1 bg-gray-200"></div>
+                  <div className="h-px flex-1 bg-indigo-100"></div>
                   <div className="text-xl font-semibold w-1/2 text-right text-gray-800">
                     {t(step.key as any)}
                   </div>
@@ -157,10 +168,12 @@ export default function Home() {
       </section>
 
       {/* PORTFOLIO */}
-      <section id="portfolio" className="py-32 px-6 bg-white">
+      <section id="portfolio" className="py-32 px-6 bg-[#F7F8FD]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center text-gray-900">{t('portfolio_title')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900">{t('portfolio_title')}</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { img: portRest, title: 'portfolio_item1' },
               { img: portFash, title: 'portfolio_item2' },
@@ -169,10 +182,10 @@ export default function Home() {
               { img: portSpa, title: 'portfolio_item5' },
               { img: portRE, title: 'portfolio_item6' },
             ].map((p, i) => (
-              <div key={i} className="group relative rounded-3xl overflow-hidden aspect-[4/3] bg-gray-100 border border-gray-200 shadow-sm hover:shadow-xl transition-shadow duration-300" data-testid={`portfolio-item-${i}`}>
-                <img src={p.img} alt={`Saigon Design - ${t(p.title as any)}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-8">
-                  <h3 className="text-2xl font-bold text-white">{t(p.title as any)}</h3>
+              <div key={i} className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-gray-100 border border-indigo-100/60 shadow-sm hover:shadow-[0_20px_60px_-15px_rgba(99,102,241,0.3)] transition-all duration-500" data-testid={`portfolio-item-${i}`}>
+                <img src={p.img} alt={`Saigon Design - ${t(p.title as any)}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108" />
+                <div className="absolute inset-0 bg-gradient-to-t from-indigo-950/90 via-indigo-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-8">
+                  <h3 className="text-xl font-bold text-white">{t(p.title as any)}</h3>
                 </div>
               </div>
             ))}
@@ -181,9 +194,13 @@ export default function Home() {
       </section>
 
       {/* PRICING */}
-      <section id="pricing" className="py-24 px-6 bg-gray-50 border-y border-gray-200">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-center text-gray-900">{t('pricing_title')}</h2>
+      <section id="pricing" className="py-28 px-6 relative overflow-hidden" style={{background: 'linear-gradient(160deg, #f0f1ff 0%, #f7f0ff 100%)'}}>
+        <div className="absolute top-10 right-10 w-80 h-80 bg-indigo-200/25 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-0 left-10 w-96 h-64 bg-purple-200/20 rounded-full blur-[100px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900">{t('pricing_title')}</h2>
+          </div>
           <p className="text-center text-gray-500 text-sm mb-16 max-w-xl mx-auto">{t('pricing_note' as any)}</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             {([
@@ -292,12 +309,13 @@ export default function Home() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="py-32 px-6 bg-white relative overflow-hidden">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-64 bg-indigo-100/60 blur-[100px] rounded-full pointer-events-none"></div>
+      <section id="contact" className="py-32 px-6 bg-[#F7F8FD] relative overflow-hidden">
+        <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-indigo-200/20 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-64 h-64 bg-purple-200/20 blur-[80px] rounded-full pointer-events-none" />
         <div className="max-w-3xl mx-auto text-center relative z-10">
           <h2 className="text-4xl md:text-6xl font-black mb-12 text-gray-900">{t('contact_title')}</h2>
 
-          <div className="bg-gray-50 border border-gray-200 rounded-3xl p-8 md:p-12 text-left mb-12 shadow-sm">
+          <div className="bg-white/80 backdrop-blur-sm border border-indigo-100/80 rounded-3xl p-8 md:p-12 text-left mb-12 shadow-[0_20px_60px_-15px_rgba(99,102,241,0.15)]">
             <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
@@ -347,7 +365,7 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="py-8 text-center text-gray-400 text-sm border-t border-gray-200 bg-white">
+      <footer className="py-8 text-center text-gray-400 text-sm border-t border-indigo-100/60 bg-[#F7F8FD]">
         <div className="flex items-center justify-center gap-2 mb-2">
           <SaigonDesignLogo size={20} />
           <span className="font-semibold text-gray-600">Saigon Design</span>
