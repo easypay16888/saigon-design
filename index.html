@@ -1,0 +1,2245 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saigon Design —人人都可以拥有一个有个性的网站</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --primary: #6C5CE7;
+            --primary-dark: #5A4BD1;
+            --accent: #A29BFE;
+            --accent-warm: #FD79A8;
+            --bg-base: #F7F8FD;
+            --bg-card: rgba(255, 255, 255, 0.65);
+            --bg-glass: rgba(255, 255, 255, 0.45);
+            --border-glass: rgba(255, 255, 255, 0.6);
+            --border: rgba(108, 92, 231, 0.12);
+            --text-primary: #1A1A2E;
+            --text-secondary: #4A4A6A;
+            --text-muted: #8888A8;
+            --shadow-sm: 0 2px 12px rgba(108, 92, 231, 0.06);
+            --shadow-md: 0 8px 30px rgba(108, 92, 231, 0.1);
+            --shadow-lg: 0 16px 50px rgba(108, 92, 231, 0.12);
+            --gradient-1: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+            --gradient-2: linear-gradient(135deg, #FD79A8 0%, #FDCB6E 100%);
+            --gradient-3: linear-gradient(135deg, #00CEC9 0%, #6C5CE7 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-base);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* Aurora Background Orbs */
+        .aurora-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .aurora-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: auroraFloat 12s ease-in-out infinite;
+        }
+
+        .aurora-orb.orb-1 {
+            top: -15%; left: -10%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(162, 155, 254, 0.6) 0%, rgba(108, 92, 231, 0.2) 50%, transparent 70%);
+            animation-delay: 0s;
+        }
+
+        .aurora-orb.orb-2 {
+            top: -10%; right: -15%;
+            width: 550px; height: 550px;
+            background: radial-gradient(circle, rgba(0, 206, 201, 0.4) 0%, rgba(108, 92, 231, 0.15) 50%, transparent 70%);
+            animation-delay: -4s;
+        }
+
+        .aurora-orb.orb-3 {
+            bottom: -20%; left: 30%;
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(253, 121, 168, 0.35) 0%, rgba(162, 155, 254, 0.15) 50%, transparent 70%);
+            animation-delay: -8s;
+        }
+
+        @keyframes auroraFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -20px) scale(1.05); }
+            50% { transform: translate(-20px, 30px) scale(0.95); }
+            75% { transform: translate(20px, 20px) scale(1.02); }
+        }
+
+        /* Dot Grid Overlay */
+        .dot-grid {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background-image: radial-gradient(circle, rgba(108, 92, 231, 0.07) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled {
+            background: rgba(247, 248, 253, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0.6rem 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.35rem;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon .logo-d {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-icon .logo-s {
+            position: absolute;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.95);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            text-shadow: 0 1px 3px rgba(108, 92, 231, 0.5);
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+            animation: logoShine 3s ease-in-out infinite;
+        }
+
+        @keyframes logoShine {
+            0%, 100% { transform: translateX(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .logo span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s;
+            border-radius: 1px;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            background: var(--gradient-1) !important;
+            color: white !important;
+            padding: 0.55rem 1.4rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s !important;
+            -webkit-text-fill-color: white !important;
+        }
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.35);
+        }
+
+        /* Language Switcher */
+        .lang-switch {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 10px;
+            padding: 3px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-btn {
+            padding: 0.25rem 0.5rem;
+            border-radius: 7px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .lang-btn:hover { color: var(--primary); }
+        .lang-btn.active {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 2px 8px rgba(108, 92, 231, 0.3);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .mobile-toggle span {
+            width: 24px; height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .mobile-toggle.active span:nth-child(2) { opacity: 0; }
+        .mobile-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .hero-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(108, 92, 231, 0.08);
+            border: 1px solid rgba(108, 92, 231, 0.15);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge .dot {
+            width: 6px; height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .hero-slogan {
+            font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 0.8rem;
+            animation: fadeInUp 0.8s ease 0.1s both;
+            color: var(--text-primary);
+        }
+
+        .hero-slogan .highlight {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-slogan .highlight-warm {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease 0.15s both;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-subtitle .lightning { font-size: 1.3rem; }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            max-width: 520px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gradient-1);
+            color: white;
+            padding: 0.85rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before { left: 100%; }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(108, 92, 231, 0.35);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            padding: 0.85rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .stat-item { text-align: left; }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-top: 0.2rem;
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero-mockup {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .mockup-browser {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+            transition: transform 0.5s;
+        }
+
+        .mockup-browser:hover {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        }
+
+        .browser-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1rem;
+            background: rgba(247, 248, 253, 0.8);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .browser-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .browser-dot.red { background: #FF5F57; }
+        .browser-dot.yellow { background: #FFBD2E; }
+        .browser-dot.green { background: #28CA41; }
+
+        .browser-url {
+            flex: 1;
+            margin-left: 0.8rem;
+            background: rgba(108, 92, 231, 0.05);
+            border-radius: 6px;
+            padding: 0.35rem 0.8rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .browser-content {
+            padding: 1.5rem;
+            min-height: 280px;
+            position: relative;
+        }
+
+        .mock-line {
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 0.8rem;
+            animation: mockLoad 1.5s ease infinite;
+        }
+
+        .mock-line:nth-child(1) { width: 60%; background: var(--gradient-1); opacity: 0.5; }
+        .mock-line:nth-child(2) { width: 80%; background: rgba(108, 92, 231, 0.08); animation-delay: 0.1s; }
+        .mock-line:nth-child(3) { width: 45%; background: rgba(108, 92, 231, 0.06); animation-delay: 0.2s; }
+        .mock-line:nth-child(4) { width: 90%; background: rgba(108, 92, 231, 0.04); animation-delay: 0.3s; }
+
+        .mock-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+
+        .mock-card {
+            height: 65px;
+            border-radius: 10px;
+            background: rgba(108, 92, 231, 0.04);
+            border: 1px solid var(--border);
+            animation: mockLoad 2s ease infinite;
+        }
+
+        .mock-card:nth-child(1) { animation-delay: 0.4s; }
+        .mock-card:nth-child(2) { animation-delay: 0.5s; }
+        .mock-card:nth-child(3) { animation-delay: 0.6s; }
+        .mock-card:nth-child(4) { animation-delay: 0.7s; }
+
+        @keyframes mockLoad { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+        .floating-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 14px;
+            padding: 0.8rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            box-shadow: var(--shadow-md);
+            animation: float 4s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        .floating-card.card-1 { top: 5%; right: -8%; animation-delay: 0s; }
+        .floating-card.card-2 { bottom: 10%; left: -8%; animation-delay: 1.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .floating-icon {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .floating-icon.green { background: rgba(40, 202, 65, 0.12); }
+        .floating-icon.purple { background: rgba(108, 92, 231, 0.12); }
+
+        .floating-text {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .floating-sub { font-size: 0.65rem; color: var(--text-muted); }
+
+        /* Section Common */
+        section { padding: 5rem 2rem; position: relative; }
+        .section-container { max-width: 1280px; margin: 0 auto; }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 30px; height: 2px;
+            background: var(--gradient-1);
+            border-radius: 1px;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        .section-desc {
+            font-size: 1.02rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .section-divider {
+            height: 3px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+            margin-bottom: 2rem;
+            width: 50px;
+            opacity: 0.6;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: default;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .service-card:hover {
+            border-color: rgba(108, 92, 231, 0.25);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .service-card:hover::before { opacity: 1; }
+
+        .service-icon {
+            width: 54px; height: 54px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 1.3rem;
+        }
+
+        .service-icon.purple { background: rgba(108, 92, 231, 0.1); }
+        .service-icon.pink { background: rgba(253, 121, 168, 0.1); }
+        .service-icon.teal { background: rgba(0, 206, 201, 0.1); }
+        .service-icon.orange { background: rgba(253, 203, 110, 0.15); }
+        .service-icon.blue { background: rgba(9, 132, 227, 0.1); }
+        .service-icon.indigo { background: rgba(108, 92, 231, 0.1); }
+
+        .service-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+            color: var(--text-primary);
+        }
+
+        .service-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1.2rem;
+        }
+
+        .service-tag {
+            font-size: 0.68rem;
+            padding: 0.2rem 0.65rem;
+            border-radius: 50px;
+            background: rgba(108, 92, 231, 0.06);
+            color: var(--primary);
+            font-weight: 500;
+            border: 1px solid rgba(108, 92, 231, 0.08);
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .project-card:hover {
+            border-color: rgba(108, 92, 231, 0.25);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image-inner {
+            width: 100%; height: 100%;
+            transition: transform 0.6s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-card:hover .project-image-inner { transform: scale(1.05); }
+
+        .project-image-inner.p1 { background: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%); }
+        .project-image-inner.p2 { background: linear-gradient(135deg, #00CEC9 0%, #6C5CE7 100%); }
+        .project-image-inner.p3 { background: linear-gradient(135deg, #FD79A8 0%, #6C5CE7 100%); }
+        .project-image-inner.p4 { background: linear-gradient(135deg, #FDCB6E 0%, #E17055 100%); }
+
+        .project-mockup {
+            width: 80%; height: 70%;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .project-mockup .pm-bar { display: flex; gap: 4px; }
+        .project-mockup .pm-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.4); }
+        .project-mockup .pm-line { height: 5px; border-radius: 3px; background: rgba(255,255,255,0.15); }
+        .project-mockup .pm-line.w60 { width: 60%; }
+        .project-mockup .pm-line.w80 { width: 80%; }
+        .project-mockup .pm-line.w40 { width: 40%; }
+        .project-mockup .pm-blocks {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 5px;
+            margin-top: 6px;
+            flex: 1;
+        }
+        .project-mockup .pm-block { background: rgba(255,255,255,0.1); border-radius: 5px; }
+
+        .project-info { padding: 1.5rem; }
+
+        .project-category {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .project-info h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: var(--text-primary);
+        }
+
+        .project-info p {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.8rem;
+        }
+
+        .project-tech span {
+            font-size: 0.68rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 5px;
+            background: rgba(108, 92, 231, 0.08);
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Process */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 12%; right: 12%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent-warm), #00CEC9, #FDCB6E);
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 54px; height: 54px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 900;
+            margin: 0 auto 1.2rem;
+        }
+
+        .step-number.s1 { background: rgba(108, 92, 231, 0.1); color: var(--primary); border: 2px solid rgba(108, 92, 231, 0.2); }
+        .step-number.s2 { background: rgba(253, 121, 168, 0.1); color: var(--accent-warm); border: 2px solid rgba(253, 121, 168, 0.2); }
+        .step-number.s3 { background: rgba(0, 206, 201, 0.1); color: #00CEC9; border: 2px solid rgba(0, 206, 201, 0.2); }
+        .step-number.s4 { background: rgba(253, 203, 110, 0.15); color: #E17055; border: 2px solid rgba(253, 203, 110, 0.3); }
+
+        .process-step h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .process-step p {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Tech Stack */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+        }
+
+        .tech-item {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 1.3rem 0.8rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: default;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tech-item:hover {
+            border-color: rgba(108, 92, 231, 0.25);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .tech-icon { font-size: 1.8rem; margin-bottom: 0.5rem; display: block; }
+        .tech-item span:last-child { font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(108, 92, 231, 0.2);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .testimonial-stars {
+            color: #FDCB6E;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .author-avatar {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: white;
+        }
+
+        .author-avatar.a1 { background: var(--gradient-1); }
+        .author-avatar.a2 { background: var(--gradient-3); }
+        .author-avatar.a3 { background: var(--gradient-2); }
+
+        .author-name { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); }
+        .author-role { font-size: 0.73rem; color: var(--text-muted); }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            transition: all 0.4s;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.04);
+            transform: scale(1.04);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.04) translateY(-6px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-1);
+            color: white;
+            padding: 0.3rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        .pricing-price {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 0.3rem;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .pricing-desc {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pricing-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+        }
+
+        .pricing-features li .check { color: #00CEC9; font-weight: 700; }
+
+        .pricing-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.88rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .pricing-btn.outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .pricing-btn.outline:hover {
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.04);
+        }
+
+        .pricing-btn.filled {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .pricing-btn.filled:hover {
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* CTA */
+        .cta-section { padding: 5rem 2rem; }
+
+        .cta-box {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: rgba(108, 92, 231, 0.04);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(108, 92, 231, 0.1);
+            border-radius: 24px;
+            padding: 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at center, rgba(108, 92, 231, 0.06) 0%, transparent 50%);
+            animation: ctaPulse 6s ease-in-out infinite;
+        }
+
+        @keyframes ctaPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .cta-box > * { position: relative; z-index: 1; }
+
+        .cta-box h2 {
+            font-size: clamp(1.6rem, 3vw, 2.3rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .cta-box p {
+            font-size: 1.02rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .cta-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .contact-info > p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .contact-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 42px; height: 42px;
+            border-radius: 12px;
+            background: rgba(108, 92, 231, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item-text .label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-item-text .value {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .contact-item-text .value a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item-text .value a:hover { color: var(--primary); }
+
+        .contact-form {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-group { margin-bottom: 1.2rem; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(108, 92, 231, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.88rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.08);
+        }
+
+        .form-group textarea { resize: vertical; min-height: 90px; }
+        .form-group select option { background: white; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+        .form-submit {
+            width: 100%;
+            padding: 0.85rem;
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-submit:hover {
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem 2rem;
+            background: rgba(255,255,255,0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-container { max-width: 1280px; margin: 0 auto; }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            line-height: 1.7;
+            margin-top: 1rem;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            font-size: 0.82rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-col ul a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.84rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul a:hover { color: var(--primary); }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-bottom p { font-size: 0.78rem; color: var(--text-muted); }
+
+        .footer-socials { display: flex; gap: 0.6rem; }
+
+        .footer-socials a {
+            width: 34px; height: 34px;
+            border-radius: 10px;
+            background: rgba(108, 92, 231, 0.06);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .footer-socials a:hover {
+            background: rgba(108, 92, 231, 0.12);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Floating Buttons */
+        .zalo-float {
+            position: fixed;
+            bottom: 2rem; right: 2rem;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .zalo-btn {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            text-decoration: none;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s;
+            border: 2px solid rgba(255,255,255,0.8);
+        }
+
+        .zalo-btn:hover { transform: scale(1.1); }
+        .zalo-btn.zalo { background: #0068FF; }
+        .zalo-btn.phone { background: #00CEC9; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container { grid-template-columns: 1fr; text-align: center; }
+            .hero-desc { margin: 0 auto 2.5rem; }
+            .hero-subtitle { justify-content: center; }
+            .hero-actions { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            .hero-visual { margin-top: 2rem; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .projects-grid { grid-template-columns: 1fr; }
+            .process-steps { grid-template-columns: repeat(2, 1fr); }
+            .process-steps::before { display: none; }
+            .tech-grid { grid-template-columns: repeat(4, 1fr); }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+            .pricing-card.featured { transform: none; }
+            .pricing-card.featured:hover { transform: translateY(-6px); }
+            .contact-grid { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(247, 248, 253, 0.97);
+                backdrop-filter: blur(20px);
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                z-index: 999;
+            }
+            .nav-links.active a { font-size: 1.2rem; color: var(--text-primary); }
+            .mobile-toggle { display: flex; }
+            .services-grid { grid-template-columns: 1fr; }
+            .tech-grid { grid-template-columns: repeat(3, 1fr); }
+            .process-steps { grid-template-columns: 1fr; }
+            .hero-stats { flex-direction: column; gap: 1rem; align-items: center; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+            .cta-box { padding: 2.5rem 1.5rem; }
+            .floating-card { display: none; }
+            .lang-switch { flex-wrap: wrap; justify-content: center; }
+        }
+
+        .counter { display: inline-block; }
+    </style>
+</head>
+<body>
+
+    <!-- Aurora Background -->
+    <div class="aurora-bg">
+        <div class="aurora-orb orb-1"></div>
+        <div class="aurora-orb orb-2"></div>
+        <div class="aurora-orb orb-3"></div>
+    </div>
+    <div class="dot-grid"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <span class="logo-d">D</span>
+                    <span class="logo-s">S</span>
+                </div>
+                <span>Saigon</span>Design
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#services" data-vi="Dịch Vụ" data-en="Services" data-ko="서비스" data-ja="サービス" data-zhcn="服务" data-zhtw="服務">Dịch Vụ</a></li>
+                <li><a href="#projects" data-vi="Dự Án" data-en="Projects" data-ko="프로젝트" data-ja="プロジェクト" data-zhcn="项目" data-zhtw="項目">Dự Án</a></li>
+                <li><a href="#process" data-vi="Quy Trình" data-en="Process" data-ko="프로세스" data-ja="プロセス" data-zhcn="流程" data-zhtw="流程">Quy Trình</a></li>
+                <li><a href="#pricing" data-vi="Bảng Giá" data-en="Pricing" data-ko="가격" data-ja="料金" data-zhcn="价格" data-zhtw="價格">Bảng Giá</a></li>
+                <li><a href="#contact" data-vi="Liên Hệ" data-en="Contact" data-ko="연락처" data-ja="お問い合わせ" data-zhcn="联系" data-zhtw="聯繫">Liên Hệ</a></li>
+                <li>
+                    <div class="lang-switch">
+                        <button class="lang-btn active" onclick="switchLang('vi')">VI</button>
+                        <button class="lang-btn" onclick="switchLang('en')">EN</button>
+                        <button class="lang-btn" onclick="switchLang('ko')">KO</button>
+                        <button class="lang-btn" onclick="switchLang('ja')">JA</button>
+                        <button class="lang-btn" onclick="switchLang('zhcn')">简中</button>
+                        <button class="lang-btn" onclick="switchLang('zhtw')">繁中</button>
+                    </div>
+                </li>
+                <li><a href="#contact" class="nav-cta" data-vi="Báo Giá →" data-en="Get Quote →" data-ko="견적 →" data-ja="見積り →" data-zhcn="报价 →" data-zhtw="報價 →">Báo Giá →</a></li>
+            </ul>
+            <div class="mobile-toggle" id="mobileToggle" onclick="toggleMobile()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    <span data-vi="🇻🇳 Đối tác công nghệ hàng đầu Việt Nam" data-en="🇻🇳 Leading Tech Partner in Vietnam" data-ko="🇻🇳 베트남 최고의 기술 파트너" data-ja="🇻🇳 ベトナムNo.1テクノロジーパートナー" data-zhcn="🇻🇳 越南领先技术合作伙伴" data-zhtw="🇻🇳 越南領先技術合作夥伴">🇻🇳 Đối tác công nghệ hàng đầu Việt Nam</span>
+                </div>
+
+                <!-- SLOGAN -->
+                <h1 class="hero-slogan">
+                    <span data-vi="Ai cũng có thể sở hữu" data-en="Everyone Can Own" data-ko="누구나 가질 수 있는" data-ja="誰でも持てる" data-zhcn="人人都可以拥有" data-zhtw="人人都可以擁有">Ai cũng có thể sở hữu</span><br>
+                    <span class="highlight" data-vi="một website cá tính" data-en="a Unique Website" data-ko="개성 있는 웹사이트" data-ja="個性あふれるウェブサイト" data-zhcn="一个有个性的网站" data-zhtw="一個有個性的網站">một website cá tính</span>
+                </h1>
+
+                <!-- SUBTITLE -->
+                <div class="hero-subtitle">
+                    <span class="lightning">⚡</span>
+                    <span data-vi="Lên website nhanh nhất trong 1 ngày" data-en="Go Live in as Fast as 1 Day" data-ko="최단 1일 오픈" data-ja="最短1日で公開" data-zhcn="最快1天上线" data-zhtw="最快1天上線">Lên website nhanh nhất trong 1 ngày</span>
+                </div>
+
+                <p class="hero-desc" data-vi="Chúng tôi giúp doanh nghiệp xây dựng hiện diện số mạnh mẽ với website đẹp, nhanh, tối ưu SEO và chuyển đổi cao." data-en="We help businesses build powerful digital presence with beautiful, fast, SEO-optimized and high-converting websites." data-ko="아름답고 빠르며 SEO 최적화되고 전환율이 높은 웹사이트로 기업의 디지털 존재감을 구축합니다." data-ja="美しく、速く、SEO最適化され、コンバージョン率の高いウェブサイトで企業のデジタルプレゼンスを構築します。" data-zhcn="我们帮助企业构建强大的数字存在，打造美观、快速、SEO优化且高转化的网站。" data-zhtw="我們幫助企業構建強大的數位存在，打造美觀、快速、SEO優化且高轉換的網站。">
+                    Chúng tôi giúp doanh nghiệp xây dựng hiện diện số mạnh mẽ với website đẹp, nhanh, tối ưu SEO và chuyển đổi cao.
+                </p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn-primary" data-vi="🚀 Tư Vấn Miễn Phí" data-en="🚀 Free Consultation" data-ko="🚀 무료 상담" data-ja="🚀 無料相談" data-zhcn="🚀 免费咨询" data-zhtw="🚀 免費諮詢">🚀 Tư Vấn Miễn Phí</a>
+                    <a href="#projects" class="btn-secondary" data-vi="Xem Dự Án →" data-en="View Projects →" data-ko="프로젝트 보기 →" data-ja="プロジェクトを見る →" data-zhcn="查看项目 →" data-zhtw="查看專案 →">Xem Dự Án →</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number"><span class="counter" data-target="150">0</span>+</div>
+                        <div class="stat-label" data-vi="Dự án hoàn thành" data-en="Projects completed" data-ko="완료된 프로젝트" data-ja="完了プロジェクト" data-zhcn="完成项目" data-zhtw="完成專案">Dự án hoàn thành</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number"><span class="counter" data-target="98">0</span>%</div>
+                        <div class="stat-label" data-vi="Khách hàng hài lòng" data-en="Client satisfaction" data-ko="고객 만족도" data-ja="顧客満足度" data-zhcn="客户满意度" data-zhtw="客戶滿意度">Khách hàng hài lòng</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number"><span class="counter" data-target="5">0</span>+</div>
+                        <div class="stat-label" data-vi="Năm kinh nghiệm" data-en="Years experience" data-ko="년 경력" data-ja="年の経験" data-zhcn="年经验" data-zhtw="年經驗">Năm kinh nghiệm</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-mockup">
+                    <div class="mockup-browser">
+                        <div class="browser-bar">
+                            <div class="browser-dot red"></div>
+                            <div class="browser-dot yellow"></div>
+                            <div class="browser-dot green"></div>
+                            <div class="browser-url">saigondesign.vn</div>
+                        </div>
+                        <div class="browser-content">
+                            <div class="mock-line"></div>
+                            <div class="mock-line"></div>
+                            <div class="mock-line"></div>
+                            <div class="mock-line"></div>
+                            <div class="mock-grid">
+                                <div class="mock-card"></div>
+                                <div class="mock-card"></div>
+                                <div class="mock-card"></div>
+                                <div class="mock-card"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="floating-card card-1">
+                        <div class="floating-icon green">✓</div>
+                        <div>
+                            <div class="floating-text" data-vi="Đã triển khai" data-en="Deployed" data-ko="배포 완료" data-ja="デプロイ完了" data-zhcn="已部署" data-zhtw="已部署">Đã triển khai</div>
+                            <div class="floating-sub" data-vi="Website hoàn thành" data-en="Website completed" data-ko="웹사이트 완료" data-ja="ウェブサイト完了" data-zhcn="网站完成" data-zhtw="網站完成">Website hoàn thành</div>
+                        </div>
+                    </div>
+                    <div class="floating-card card-2">
+                        <div class="floating-icon purple">⚡</div>
+                        <div>
+                            <div class="floating-text">Performance</div>
+                            <div class="floating-sub">98/100</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-container">
+            <div class="reveal">
+                <div class="section-label" data-vi="Dịch vụ" data-en="Services" data-ko="서비스" data-ja="サービス" data-zhcn="服务" data-zhtw="服務">Dịch vụ</div>
+                <div class="section-divider"></div>
+                <h2 class="section-title" data-vi="Giải Pháp Số Toàn Diện" data-en="Comprehensive Digital Solutions" data-ko="종합 디지털 솔루션" data-ja="包括的デジタルソリューション" data-zhcn="全方位数字解决方案" data-zhtw="全方位數位解決方案">Giải Pháp Số Toàn Diện</h2>
+                <p class="section-desc" data-vi="Từ thiết kế đến phát triển, từ SEO đến bảo trì — chúng tôi cung cấp mọi dịch vụ bạn cần." data-en="From design to development, from SEO to maintenance — we provide everything you need." data-ko="디자인부터 개발, SEO부터 유지보수까지 — 필요한 모든 서비스를 제공합니다." data-ja="デザインから開発、SEOからメンテナンスまで — 必要なすべてを提供します。" data-zhcn="从设计到开发，从SEO到维护——我们提供您所需的一切服务。" data-zhtw="從設計到開發，從SEO到維護——我們提供您所需的一切服務。">
+                    Từ thiết kế đến phát triển, từ SEO đến bảo trì — chúng tôi cung cấp mọi dịch vụ bạn cần.
+                </p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div class="service-icon purple">🎨</div>
+                    <h3 data-vi="Thiết Kế UI/UX" data-en="UI/UX Design" data-ko="UI/UX 디자인" data-ja="UI/UXデザイン" data-zhcn="UI/UX设计" data-zhtw="UI/UX設計">Thiết Kế UI/UX</h3>
+                    <p data-vi="Giao diện đẹp mắt, trải nghiệm mượt mà, thiết kế theo chuẩn quốc tế." data-en="Beautiful interfaces, smooth experience, international design standards." data-ko="아름다운 인터페이스, 매끄러운 경험, 국제 디자인 기준." data-ja="美しいインターフェース、滑らかな体験、国際デザイン基準。" data-zhcn="美观界面，流畅体验，国际设计标准。" data-zhtw="美觀介面，流暢體驗，國際設計標準。">
+                        Giao diện đẹp mắt, trải nghiệm mượt mà, thiết kế theo chuẩn quốc tế.
+                    </p>
+                    <div class="service-tags"><span class="service-tag">Figma</span><span class="service-tag">Responsive</span><span class="service-tag">Mobile First</span></div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon pink">💻</div>
+                    <h3 data-vi="Phát Triển Website" data-en="Web Development" data-ko="웹 개발" data-ja="ウェブ開発" data-zhcn="网站开发" data-zhtw="網站開發">Phát Triển Website</h3>
+                    <p data-vi="Xây dựng website hiện đại với React, Next.js, Vue.js. Code sạch, hiệu năng cao." data-en="Build modern websites with React, Next.js, Vue.js. Clean code, high performance." data-ko="React, Next.js, Vue.js로 현대적인 웹사이트 구축. 클린 코드, 높은 성능." data-ja="React、Next.js、Vue.jsでモダンなウェブサイトを構築。クリーンコード、高性能。" data-zhcn="使用React、Next.js、Vue.js构建现代网站。代码整洁，性能卓越。" data-zhtw="使用React、Next.js、Vue.js構建現代網站。程式碼整潔，效能卓越。">
+                        Xây dựng website hiện đại với React, Next.js, Vue.js. Code sạch, hiệu năng cao.
+                    </p>
+                    <div class="service-tags"><span class="service-tag">React</span><span class="service-tag">Next.js</span><span class="service-tag">Vue.js</span></div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon teal">🛒</div>
+                    <h3 data-vi="Thương Mại Điện Tử" data-en="E-Commerce" data-ko="이커머스" data-ja="ECサイト" data-zhcn="电子商务" data-zhtw="電子商務">Thương Mại Điện Tử</h3>
+                    <p data-vi="Tích hợp thanh toán VNPay, MoMo, ZaloPay. Quản lý sản phẩm, đơn hàng tự động." data-en="Integrate VNPay, MoMo, ZaloPay payments. Automated product & order management." data-ko="VNPay, MoMo, ZaloPay 결제 연동. 자동화된 제품 및 주문 관리." data-ja="VNPay、MoMo、ZaloPay決済統合。自動化された製品・注文管理。" data-zhcn="集成VNPay、MoMo、ZaloPay支付。自动化产品和订单管理。" data-zhtw="整合VNPay、MoMo、ZaloPay支付。自動化產品和訂單管理。">
+                        Tích hợp thanh toán VNPay, MoMo, ZaloPay. Quản lý sản phẩm, đơn hàng tự động.
+                    </p>
+                    <div class="service-tags"><span class="service-tag">WooCommerce</span><span class="service-tag">Shopify</span><span class="service-tag">Custom</span></div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon orange">📈</div>
+                    <h3 data-vi="Tối Ưu SEO" data-en="SEO Optimization" data-ko="SEO 최적화" data-ja="SEO最適化" data-zhcn="SEO优化" data-zhtw="SEO優化">Tối Ưu SEO</h3>
+                    <p data-vi="Đưa website lên top Google với chiến lược SEO chuyên sâu cho thị trường Việt Nam." data-en="Get your website to Google top with deep SEO strategy for Vietnam market." data-ko="베트남 시장을 위한 심층 SEO 전략으로 웹사이트를 Google 상위권에." data-ja="ベトナム市場向けの深いSEO戦略でウェブサイトをGoogle上位に。" data-zhcn="通过深度SEO策略将网站推向Google首页，专注越南市场。" data-zhtw="透過深度SEO策略將網站推向Google首頁，專注越南市場。">
+                        Đưa website lên top Google với chiến lược SEO chuyên sâu cho thị trường Việt Nam.
+                    </p>
+                    <div class="service-tags"><span class="service-tag">Google</span><span class="service-tag">Analytics</span><span class="service-tag">Core Web Vitals</span></div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon blue">📱</div>
+                    <h3 data-vi="Landing Page" data-en="Landing Pages" data-ko="랜딩 페이지" data-ja="ランディングページ" data-zhcn="落地页" data-zhtw="登陸頁">Landing Page</h3>
+                    <p data-vi="Thiết kế landing page chuyển đổi cao cho chiến dịch marketing. A/B testing liên tục." data-en="High-converting landing pages for marketing campaigns. Continuous A/B testing." data-ko="마케팅 캠페인을 위한 높은 전환율 랜딩 페이지. 지속적인 A/B 테스트." data-ja="マーケティングキャンペーンのための高コンバージョンランディングページ。継続的なA/Bテスト。" data-zhcn="为营销活动设计高转化落地页。持续A/B测试优化。" data-zhtw="為行銷活動設計高轉換登陸頁。持續A/B測試優化。">
+                        Thiết kế landing page chuyển đổi cao cho chiến dịch marketing. A/B testing liên tục.
+                    </p>
+                    <div class="service-tags"><span class="service-tag">Conversion</span><span class="service-tag">A/B Test</span><span class="service-tag">Analytics</span></div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon indigo">🔧</div>
+                    <h3 data-vi="Bảo Trì & Hỗ Trợ" data-en="Maintenance & Support" data-ko="유지보수 및 지원" data-ja="メンテナンス＆サポート" data-zhcn="维护与支持" data-zhtw="維護與支援">Bảo Trì & Hỗ Trợ</h3>
+                    <p data-vi="Hỗ trợ kỹ thuật 24/7, cập nhật bảo mật, backup tự động. Cam kết uptime 99.9%." data-en="24/7 technical support, security updates, auto backup. 99.9% uptime guaranteed." data-ko="24/7 기술 지원, 보안 업데이트, 자동 백업. 99.9% 업타임 보장." data-ja="24/7技術サポート、セキュリティ更新、自動バックアップ。99.9%アップタイム保証。" data-zhcn="24/7技术支持，安全更新，自动备份。99.9%在线保证。" data-zhtw="24/7技術支援，安全更新，自動備份。99.9%在線保證。">
+                        Hỗ trợ kỹ thuật 24/7, cập nhật bảo mật, backup tự động. Cam kết uptime 99.9%.
+                    </p>
+                    <div class="service-tags"><span class="service-tag">24/7</span><span class="service-tag">Backup</span><span class="service-tag">Security</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="section-container">
+            <div class="reveal">
+                <div class="section-label" data-vi="Dự án tiêu biểu" data-en="Featured Projects" data-ko="주요 프로젝트" data-ja="注目のプロジェクト" data-zhcn="精选项目" data-zhtw="精選專案">Dự án tiêu biểu</div>
+                <div class="section-divider"></div>
+                <h2 class="section-title" data-vi="Tác Phẩm Chúng Tôi Tự Hào" data-en="Works We're Proud Of" data-ko="자랑스러운 작품" data-ja="誇りに思う作品" data-zhcn="我们自豪的作品" data-zhtw="我們自豪的作品">Tác Phẩm Chúng Tôi Tự Hào</h2>
+                <p class="section-desc" data-vi="Mỗi dự án là một câu chuyện thành công cho khách hàng tại Việt Nam." data-en="Every project is a success story for clients in Vietnam." data-ko="각 프로젝트는 베트남 고객의 성공 스토리입니다." data-ja="各プロジェクトはベトナムのクライアントの成功物語です。" data-zhcn="每个项目都是越南客户的成功故事。" data-zhtw="每個專案都是越南客戶的成功故事。">
+                    Mỗi dự án là một câu chuyện thành công cho khách hàng tại Việt Nam.
+                </p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card reveal">
+                    <div class="project-image">
+                        <div class="project-image-inner p1">
+                            <div class="project-mockup">
+                                <div class="pm-bar"><div class="pm-dot"></div><div class="pm-dot"></div><div class="pm-dot"></div></div>
+                                <div class="pm-line w60"></div><div class="pm-line w80"></div>
+                                <div class="pm-blocks"><div class="pm-block"></div><div class="pm-block"></div><div class="pm-block"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-category" data-vi="Thương Mại Điện Tử" data-en="E-Commerce" data-ko="이커머스" data-ja="ECサイト" data-zhcn="电子商务" data-zhtw="電子商務">Thương Mại Điện Tử</div>
+                        <h3>Mekong Fresh Food</h3>
+                        <p data-vi="Sàn TMĐT chuyên về nông sản Mekong. Tích hợp thanh toán đa phương thức." data-en="E-commerce platform for Mekong agricultural products. Multi-payment integration." data-ko="메콩 농산물 이커머스 플랫폼. 다중 결제 연동." data-ja="メコン農産物ECプラットフォーム。複数決済統合。" data-zhcn="湄公河农产品电商平台。集成多种支付方式。" data-zhtw="湄公河農產品電商平台。整合多種支付方式。">
+                            Sàn TMĐT chuyên về nông sản Mekong. Tích hợp thanh toán đa phương thức.
+                        </p>
+                        <div class="project-tech"><span>Next.js</span><span>Node.js</span><span>MongoDB</span><span>VNPay</span></div>
+                    </div>
+                </div>
+                <div class="project-card reveal">
+                    <div class="project-image">
+                        <div class="project-image-inner p2">
+                            <div class="project-mockup">
+                                <div class="pm-bar"><div class="pm-dot"></div><div class="pm-dot"></div><div class="pm-dot"></div></div>
+                                <div class="pm-line w80"></div><div class="pm-line w60"></div>
+                                <div class="pm-blocks"><div class="pm-block"></div><div class="pm-block"></div><div class="pm-block"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-category" data-vi="Website Doanh Nghiệp" data-en="Corporate Website" data-ko="기업 웹사이트" data-ja="企業ウェブサイト" data-zhcn="企业网站" data-zhtw="企業網站">Website Doanh Nghiệp</div>
+                        <h3>Saigon Tech Hub</h3>
+                        <p data-vi="Website giới thiệu công ty công nghệ với thiết kế hiện đại, animation mượt mà." data-en="Tech company showcase with modern design and smooth animations." data-ko="모던한 디자인과 매끄러운 애니메이션의 기술 회사 소개 웹사이트." data-ja="モダンなデザインと滑らかなアニメーションのテック企業紹介。" data-zhcn="现代设计和流畅动画的科技公司展示网站。" data-zhtw="現代設計和流暢動畫的科技公司展示網站。">
+                            Website giới thiệu công ty công nghệ với thiết kế hiện đại, animation mượt mà.
+                        </p>
+                        <div class="project-tech"><span>React</span><span>Framer Motion</span><span>Tailwind</span></div>
+                    </div>
+                </div>
+                <div class="project-card reveal">
+                    <div class="project-image">
+                        <div class="project-image-inner p3">
+                            <div class="project-mockup">
+                                <div class="pm-bar"><div class="pm-dot"></div><div class="pm-dot"></div><div class="pm-dot"></div></div>
+                                <div class="pm-line w40"></div><div class="pm-line w100"></div>
+                                <div class="pm-blocks"><div class="pm-block"></div><div class="pm-block"></div><div class="pm-block"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-category" data-vi="Ứng Dụng Web" data-en="Web Application" data-ko="웹 애플리케이션" data-ja="ウェブアプリケーション" data-zhcn="Web应用" data-zhtw="Web應用">Ứng Dụng Web</div>
+                        <h3>EduViet Platform</h3>
+                        <p data-vi="Nền tảng giáo dục trực tuyến với khóa học, quiz, chứng chỉ. 10,000+ học viên." data-en="Online education platform with courses, quizzes, certificates. 10,000+ students." data-ko="강의, 퀴즈, 인증서가 있는 온라인 교육 플랫폼. 10,000+ 학생." data-ja="コース、クイズ、証明書付きオンライン教育プラットフォーム。10,000+生徒。" data-zhcn="在线课程、测验、证书教育平台。10,000+学员。" data-zhtw="線上課程、測驗、證書教育平台。10,000+學員。">
+                            Nền tảng giáo dục trực tuyến với khóa học, quiz, chứng chỉ. 10,000+ học viên.
+                        </p>
+                        <div class="project-tech"><span>Vue.js</span><span>Laravel</span><span>PostgreSQL</span></div>
+                    </div>
+                </div>
+                <div class="project-card reveal">
+                    <div class="project-image">
+                        <div class="project-image-inner p4">
+                            <div class="project-mockup">
+                                <div class="pm-bar"><div class="pm-dot"></div><div class="pm-dot"></div><div class="pm-dot"></div></div>
+                                <div class="pm-line w100"></div><div class="pm-line w60"></div>
+                                <div class="pm-blocks"><div class="pm-block"></div><div class="pm-block"></div><div class="pm-block"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-category">Landing Page</div>
+                        <h3>Phú Quốc Resort</h3>
+                        <p data-vi="Landing page đặt phòng resort cao cấp. Đa ngôn ngữ Việt-Anh-Trung." data-en="Premium resort booking landing page. Multi-language VI-EN-ZH." data-ko="프리미엄 리조트 예약 랜딩 페이지. 다국어 VI-EN-ZH." data-ja="プレミアムリゾート予約ランディングページ。多言語VI-EN-ZH。" data-zhcn="高端度假村预订落地页。多语言越-英-中。" data-zhtw="高端度假村預訂登陸頁。多語言越-英-中。">
+                            Landing page đặt phòng resort cao cấp. Đa ngôn ngữ Việt-Anh-Trung.
+                        </p>
+                        <div class="project-tech"><span>Next.js</span><span>Stripe</span><span>i18n</span><span>AWS</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <div class="section-container">
+            <div class="reveal" style="text-align:center;margin-bottom:3rem;">
+                <div class="section-label" style="justify-content:center;" data-vi="Quy trình" data-en="Process" data-ko="프로세스" data-ja="プロセス" data-zhcn="流程" data-zhtw="流程">Quy trình</div>
+                <div class="section-divider" style="margin:0 auto 2rem;"></div>
+                <h2 class="section-title" data-vi="4 Bước Đến Thành Công" data-en="4 Steps to Success" data-ko="성공으로 가는 4단계" data-ja="成功への4ステップ" data-zhcn="通往成功的4步" data-zhtw="通往成功的4步">4 Bước Đến Thành Công</h2>
+            </div>
+            <div class="process-steps">
+                <div class="process-step reveal">
+                    <div class="step-number s1">01</div>
+                    <h3 data-vi="Tư Vấn & Phân Tích" data-en="Consult & Analyze" data-ko="상담 및 분석" data-ja="相談＆分析" data-zhcn="咨询与分析" data-zhtw="諮詢與分析">Tư Vấn & Phân Tích</h3>
+                    <p data-vi="Lắng nghe yêu cầu, phân tích thị trường, đề xuất giải pháp tối ưu." data-en="Listen to requirements, analyze market, propose optimal solutions." data-ko="요구사항 청취, 시장 분석, 최적 솔루션 제안." data-ja="要件を聞き、市場を分析し、最適なソリューションを提案。" data-zhcn="倾听需求，分析市场，提出最优方案。" data-zhtw="傾聽需求，分析市場，提出最優方案。">
+                        Lắng nghe yêu cầu, phân tích thị trường, đề xuất giải pháp tối ưu.
+                    </p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="step-number s2">02</div>
+                    <h3 data-vi="Thiết Kế UI/UX" data-en="UI/UX Design" data-ko="UI/UX 디자인" data-ja="UI/UXデザイン" data-zhcn="UI/UX设计" data-zhtw="UI/UX設計">Thiết Kế UI/UX</h3>
+                    <p data-vi="Thiết kế giao diện đẹp, duyệt qua Figma, chỉnh sửa không giới hạn." data-en="Beautiful design, review via Figma, unlimited revisions." data-ko="아름다운 디자인, Figma로 검토, 무제한 수정." data-ja="美しいデザイン、Figmaで確認、無制限の修正。" data-zhcn="精美设计，Figma审核，无限修改。" data-zhtw="精美設計，Figma審核，無限修改。">
+                        Thiết kế giao diện đẹp, duyệt qua Figma, chỉnh sửa không giới hạn.
+                    </p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="step-number s3">03</div>
+                    <h3 data-vi="Phát Triển & Test" data-en="Develop & Test" data-ko="개발 및 테스트" data-ja="開発＆テスト" data-zhcn="开发与测试" data-zhtw="開發與測試">Phát Triển & Test</h3>
+                    <p data-vi="Code sạch, test kỹ lưỡng. Báo cáo tiến độ hàng tuần qua Zalo/Email." data-en="Clean code, thorough testing. Weekly progress reports via Zalo/Email." data-ko="클린 코드, 철저한 테스트. Zalo/이메일로 주간 진행 보고서." data-ja="クリーンコード、徹底テスト。Zalo/メールで週次進捗報告。" data-zhcn="整洁代码，全面测试。通过Zalo/邮件每周汇报进度。" data-zhtw="整潔程式碼，全面測試。透過Zalo/郵件每週匯報進度。">
+                        Code sạch, test kỹ lưỡng. Báo cáo tiến độ hàng tuần qua Zalo/Email.
+                    </p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="step-number s4">04</div>
+                    <h3 data-vi="Bàn Giao & Hỗ Trợ" data-en="Deliver & Support" data-ko="인도 및 지원" data-ja="納品＆サポート" data-zhcn="交付与支持" data-zhtw="交付與支援">Bàn Giao & Hỗ Trợ</h3>
+                    <p data-vi="Deploy lên server, hướng dẫn sử dụng, bảo hành 12 tháng." data-en="Deploy to server, user training, 12-month warranty." data-ko="서버 배포, 사용 교육, 12개월 보증." data-ja="サーバーデプロイ、使用トレーニング、12ヶ月保証。" data-zhcn="部署到服务器，使用培训，12个月保修。" data-zhtw="部署到伺服器，使用培訓，12個月保固。">
+                        Deploy lên server, hướng dẫn sử dụng, bảo hành 12 tháng.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="tech" id="tech">
+        <div class="section-container">
+            <div class="reveal" style="text-align:center;margin-bottom:3rem;">
+                <div class="section-label" style="justify-content:center;" data-vi="Công nghệ" data-en="Tech Stack" data-ko="기술 스택" data-ja="技術スタック" data-zhcn="技术栈" data-zhtw="技術堆疊">Công nghệ</div>
+                <div class="section-divider" style="margin:0 auto 2rem;"></div>
+                <h2 class="section-title" data-vi="Công Nghệ Hiện Đại" data-en="Modern Technologies" data-ko="최신 기술" data-ja="最新技術" data-zhcn="现代技术" data-zhtw="現代技術">Công Nghệ Hiện Đại</h2>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-item reveal"><span class="tech-icon">⚛️</span><span>React</span></div>
+                <div class="tech-item reveal"><span class="tech-icon">▲</span><span>Next.js</span></div>
+                <div class="tech-item reveal"><span class="tech-icon">💚</span><span>Vue.js</span></div>
+                <div class="tech-item reveal"><span class="tech-icon">🟢</span><span>Node.js</span></div>
+                <div class="tech-item reveal"><span class="tech-icon">🐘</span><span>Laravel</span></div>
+                <div class="tech-item reveal"><span class="tech-icon">🐍</span><span>Python</span></div>
+                <div class="tech-item reveal"><span class="tech-icon">🍃</span><span>MongoDB</span></div>
+                <div class="tech-item reveal"><span class="tech-icon">🐬</span><span>MySQL</span></div>
+                <div class="tech-item reveal"><span class="tech-icon">🎨</span><span>Tailwind</span></div>
+                <div class="tech-item reveal"><span class="tech-icon">📦</span><span>Docker</span></div>
+                <div class="tech-item reveal"><span class="tech-icon">☁️</span><span>AWS</span></div>
+                <div class="tech-item reveal"><span class="tech-icon">🔥</span><span>Firebase</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-container">
+            <div class="reveal" style="text-align:center;margin-bottom:3rem;">
+                <div class="section-label" style="justify-content:center;" data-vi="Đánh giá" data-en="Reviews" data-ko="리뷰" data-ja="レビュー" data-zhcn="评价" data-zhtw="評價">Đánh giá</div>
+                <div class="section-divider" style="margin:0 auto 2rem;"></div>
+                <h2 class="section-title" data-vi="Khách Hàng Nói Gì" data-en="What Clients Say" data-ko="고객의 소리" data-ja="お客様の声" data-zhcn="客户评价" data-zhtw="客戶評價">Khách Hàng Nói Gì</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text" data-vi="&quot;Doanh thu online tăng 200% sau 3 tháng. Rất hài lòng!&quot;" data-en="&quot;Online revenue increased 200% after 3 months. Very satisfied!&quot;" data-ko="&quot;3개월 후 온라인 수익이 200% 증가했습니다. 매우 만족합니다!&quot;" data-ja="&quot;3ヶ月後にオンライン収益が200%増加。非常に満足！&quot;" data-zhcn="&quot;3个月后在线收入增长200%。非常满意！&quot;" data-zhtw="&quot;3個月後線上收入增長200%。非常滿意！&quot;">
+                        "Doanh thu online tăng 200% sau 3 tháng. Rất hài lòng!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar a1">TH</div>
+                        <div><div class="author-name">Trần Hoàng</div><div class="author-role">CEO, Mekong Fresh</div></div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text" data-vi="&quot;Team chuyên nghiệp, giao tiếp nhanh. SEO lên top nhanh.&quot;" data-en="&quot;Professional team, fast communication. Quick SEO ranking.&quot;" data-ko="&quot;전문적인 팀, 빠른 소통. 빠른 SEO 순위 상승.&quot;" data-ja="&quot;プロフェッショナルなチーム、迅速なコミュニケーション。SEO順位もすぐに上昇。&quot;" data-zhcn="&quot;团队专业，沟通快速。SEO排名上升快。&quot;" data-zhtw="&quot;團隊專業，溝通快速。SEO排名上升快。&quot;">
+                        "Team chuyên nghiệp, giao tiếp nhanh. SEO lên top nhanh."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar a2">NL</div>
+                        <div><div class="author-name">Nguyễn Linh</div><div class="author-role">Marketing Director</div></div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text" data-vi="&quot;Giá hợp lý, chất lượng vượt mong đợi. Hỗ trợ sau bàn giao rất tốt.&quot;" data-en="&quot;Reasonable price, quality exceeds expectations. Great post-delivery support.&quot;" data-ko="&quot;합리적인 가격, 기대 이상의 품질. 인도 후 지원도 훌륭합니다.&quot;" data-ja="&quot;リーズナブルな価格、期待以上の品質。納品後のサポートも素晴らしい。&quot;" data-zhcn="&quot;价格合理，质量超出预期。交付后支持非常好。&quot;" data-zhtw="&quot;價格合理，品質超出預期。交付後支援非常好。&quot;">
+                        "Giá hợp lý, chất lượng vượt mong đợi. Hỗ trợ sau bàn giao rất tốt."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar a3">PD</div>
+                        <div><div class="author-name">Phạm Dung</div><div class="author-role">Owner, Phú Quốc Resort</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="section-container">
+            <div class="reveal" style="text-align:center;margin-bottom:3rem;">
+                <div class="section-label" style="justify-content:center;" data-vi="Bảng giá" data-en="Pricing" data-ko="가격" data-ja="料金" data-zhcn="价格" data-zhtw="價格">Bảng giá</div>
+                <div class="section-divider" style="margin:0 auto 2rem;"></div>
+                <h2 class="section-title" data-vi="Gói Dịch Vụ Phù Hợp" data-en="Suitable Packages" data-ko="맞춤 패키지" data-ja="最適なパッケージ" data-zhcn="适合的服务套餐" data-zhtw="適合的服務方案">Gói Dịch Vụ Phù Hợp</h2>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card reveal">
+                    <div class="pricing-name" data-vi="Cơ Bản" data-en="Basic" data-ko="베이직" data-ja="ベーシック" data-zhcn="基础版" data-zhtw="基礎版">Cơ Bản</div>
+                    <div class="pricing-price">
+                        <span data-vi="10.000.000₫" data-en="10,000,000₫" data-ko="10,000,000₫" data-ja="10,000,000₫" data-zhcn="10,000,000₫" data-zhtw="10,000,000₫">10.000.000₫</span>
+                    </div>
+                    <div class="pricing-desc" data-vi="Cho cá nhân, startup" data-en="For individuals, startups" data-ko="개인, 스타트업용" data-ja="個人・スタートアップ向け" data-zhcn="适合个人、初创企业" data-zhtw="適合個人、新創企業">Cho cá nhân, startup</div>
+                    <ul class="pricing-features">
+                        <li><span class="check">✓</span> <span data-vi="5 trang" data-en="5 pages" data-ko="5페이지" data-ja="5ページ" data-zhcn="5个页面" data-zhtw="5個頁面">5 trang</span></li>
+                        <li><span class="check">✓</span> <span data-vi="Responsive" data-en="Responsive" data-ko="반응형" data-ja="レスポンシブ" data-zhcn="响应式" data-zhtw="響應式">Responsive</span></li>
+                        <li><span class="check">✓</span> <span data-vi="SEO cơ bản" data-en="Basic SEO" data-ko="기본 SEO" data-ja="基本SEO" data-zhcn="基础SEO" data-zhtw="基礎SEO">SEO cơ bản</span></li>
+                        <li><span class="check">✓</span> <span data-vi="Form liên hệ" data-en="Contact form" data-ko="연락처 양식" data-ja="お問い合わせフォーム" data-zhcn="联系表单" data-zhtw="聯繫表單">Form liên hệ</span></li>
+                        <li><span class="check">✓</span> <span data-vi="Bảo hành 6 tháng" data-en="6-month warranty" data-ko="6개월 보증" data-ja="6ヶ月保証" data-zhcn="6个月保修" data-zhtw="6個月保固">Bảo hành 6 tháng</span></li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn outline" data-vi="Chọn Gói" data-en="Choose" data-ko="선택" data-ja="選択" data-zhcn="选择" data-zhtw="選擇">Chọn Gói</a>
+                </div>
+                <div class="pricing-card featured reveal">
+                    <div class="pricing-badge" data-vi="Phổ biến nhất" data-en="Most Popular" data-ko="가장 인기" data-ja="一番人気" data-zhcn="最受欢迎" data-zhtw="最受歡迎">Phổ biến nhất</div>
+                    <div class="pricing-name" data-vi="Chuyên Nghiệp" data-en="Professional" data-ko="프로페셔널" data-ja="プロフェッショナル" data-zhcn="专业版" data-zhtw="專業版">Chuyên Nghiệp</div>
+                    <div class="pricing-price">
+                        <span data-vi="25.000.000₫" data-en="25,000,000₫" data-ko="25,000,000₫" data-ja="25,000,000₫" data-zhcn="25,000,000₫" data-zhtw="25,000,000₫">25.000.000₫</span>
+                    </div>
+                    <div class="pricing-desc" data-vi="Cho doanh nghiệp vừa & nhỏ" data-en="For SMBs" data-ko="중소기업용" data-ja="中小企業向け" data-zhcn="适合中小企业" data-zhtw="適合中小企業">Cho doanh nghiệp vừa & nhỏ</div>
+                    <ul class="pricing-features">
+                        <li><span class="check">✓</span> <span data-vi="15 trang + CMS" data-en="15 pages + CMS" data-ko="15페이지 + CMS" data-ja="15ページ+CMS" data-zhcn="15个页面+CMS" data-zhtw="15個頁面+CMS">15 trang + CMS</span></li>
+                        <li><span class="check">✓</span> <span data-vi="SEO nâng cao" data-en="Advanced SEO" data-ko="고급 SEO" data-ja="上級SEO" data-zhcn="高级SEO" data-zhtw="進階SEO">SEO nâng cao</span></li>
+                        <li><span class="check">✓</span> <span data-vi="Zalo, Facebook" data-en="Zalo, Facebook" data-ko="Zalo, Facebook" data-ja="Zalo、Facebook" data-zhcn="Zalo、Facebook" data-zhtw="Zalo、Facebook">Zalo, Facebook</span></li>
+                        <li><span class="check">✓</span> <span data-vi="Analytics" data-en="Analytics" data-ko="분석" data-ja="アナリティクス" data-zhcn="数据分析" data-zhtw="數據分析">Analytics</span></li>
+                        <li><span class="check">✓</span> <span data-vi="Bảo hành 12 tháng" data-en="12-month warranty" data-ko="12개월 보증" data-ja="12ヶ月保証" data-zhcn="12个月保修" data-zhtw="12個月保固">Bảo hành 12 tháng</span></li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn filled" data-vi="Chọn Gói" data-en="Choose" data-ko="선택" data-ja="選択" data-zhcn="选择" data-zhtw="選擇">Chọn Gói</a>
+                </div>
+                <div class="pricing-card reveal">
+                    <div class="pricing-name" data-vi="Doanh Nghiệp" data-en="Enterprise" data-ko="엔터프라이즈" data-ja="エンタープライズ" data-zhcn="企业版" data-zhtw="企業版">Doanh Nghiệp</div>
+                    <div class="pricing-price">
+                        <span data-vi="60.000.000₫" data-en="60,000,000₫" data-ko="60,000,000₫" data-ja="60,000,000₫" data-zhcn="60,000,000₫" data-zhtw="60,000,000₫">60.000.000₫</span>
+                    </div>
+                    <div class="pricing-desc" data-vi="Giải pháp toàn diện" data-en="Comprehensive solution" data-ko="종합 솔루션" data-ja="包括的ソリューション" data-zhcn="全方位解决方案" data-zhtw="全方位解決方案">Giải pháp toàn diện</div>
+                    <ul class="pricing-features">
+                        <li><span class="check">✓</span> <span data-vi="Không giới hạn trang" data-en="Unlimited pages" data-ko="무제한 페이지" data-ja="無制限ページ" data-zhcn="无限页面" data-zhtw="無限頁面">Không giới hạn trang</span></li>
+                        <li><span class="check">✓</span> <span data-vi="E-commerce" data-en="E-commerce" data-ko="이커머스" data-ja="EC機能" data-zhcn="电商功能" data-zhtw="電商功能">E-commerce</span></li>
+                        <li><span class="check">✓</span> <span data-vi="VNPay, MoMo" data-en="VNPay, MoMo" data-ko="VNPay, MoMo" data-ja="VNPay、MoMo" data-zhcn="VNPay、MoMo" data-zhtw="VNPay、MoMo">VNPay, MoMo</span></li>
+                        <li><span class="check">✓</span> <span data-vi="Đa ngôn ngữ" data-en="Multi-language" data-ko="다국어" data-ja="多言語" data-zhcn="多语言" data-zhtw="多語言">Đa ngôn ngữ</span></li>
+                        <li><span class="check">✓</span> <span data-vi="Bảo hành 24 tháng" data-en="24-month warranty" data-ko="24개월 보증" data-ja="24ヶ月保証" data-zhcn="24个月保修" data-zhtw="24個月保固">Bảo hành 24 tháng</span></li>
+                    </ul>
+                    <a href="#contact" class="pricing-btn outline" data-vi="Liên Hệ" data-en="Contact" data-ko="연락" data-ja="お問い合わせ" data-zhcn="联系" data-zhtw="聯繫">Liên Hệ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-box reveal">
+            <h2 data-vi="Sẵn Sàng Bắt Đầu?" data-en="Ready to Start?" data-ko="시작할 준비가 되셨나요?" data-ja="始める準備はできましたか？" data-zhcn="准备好开始了吗？" data-zhtw="準備好開始了嗎？">Sẵn Sàng Bắt Đầu?</h2>
+            <p data-vi="Liên hệ ngay để nhận tư vấn miễn phí. Phản hồi trong 2 giờ!" data-en="Contact us for free consultation. Response within 2 hours!" data-ko="무료 상담을 위해 연락하세요. 2시간 이내 응답!" data-ja="無料相談のお問い合わせは今すぐ。2時間以内に応答！" data-zhcn="立即联系获取免费咨询。2小时内回复！" data-zhtw="立即聯繫獲取免費諮詢。2小時內回覆！">
+                Liên hệ ngay để nhận tư vấn miễn phí. Phản hồi trong 2 giờ!
+            </p>
+            <div class="cta-actions">
+                <a href="#contact" class="btn-primary" data-vi="📩 Gửi Yêu Cầu" data-en="📩 Send Request" data-ko="📩 요청 보내기" data-ja="📩 リクエスト送信" data-zhcn="📩 发送请求" data-zhtw="📩 發送請求">📩 Gửi Yêu Cầu</a>
+                <a href="https://zalo.me/0354740168" class="btn-secondary" target="_blank" data-vi="💬 Chat Zalo" data-en="💬 Chat Zalo" data-ko="💬 Zalo 채팅" data-ja="💬 Zaloチャット" data-zhcn="💬 Zalo聊天" data-zhtw="💬 Zalo聊天">💬 Chat Zalo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-container">
+            <div class="reveal" style="margin-bottom:3rem;">
+                <div class="section-label" data-vi="Liên hệ" data-en="Contact" data-ko="연락처" data-ja="お問い合わせ" data-zhcn="联系我们" data-zhtw="聯繫我們">Liên hệ</div>
+                <div class="section-divider"></div>
+                <h2 class="section-title" data-vi="Kết Nối Với Chúng Tôi" data-en="Connect With Us" data-ko="저희와 연결하세요" data-ja="お問い合わせください" data-zhcn="与我们取得联系" data-zhtw="與我們取得聯繫">Kết Nối Với Chúng Tôi</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info reveal">
+                    <h3 data-vi="Thông Tin Liên Hệ" data-en="Contact Info" data-ko="연락처 정보" data-ja="連絡先情報" data-zhcn="联系信息" data-zhtw="聯繫資訊">Thông Tin Liên Hệ</h3>
+                    <p data-vi="Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ." data-en="We're always ready to listen and support." data-ko="항상 귀 기울이고 지원할 준비가 되어 있습니다." data-ja="いつでもお話を聞き、サポートする準備ができています。" data-zhcn="我们随时倾听并提供支持。" data-zhtw="我們隨時傾聽並提供支援。">
+                        Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ.
+                    </p>
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-item-text">
+                                <div class="label" data-vi="Địa chỉ" data-en="Address" data-ko="주소" data-ja="住所" data-zhcn="地址" data-zhtw="地址">Địa chỉ</div>
+                                <div class="value" data-vi="Quận 1, TP. Hồ Chí Minh, Việt Nam" data-en="District 1, Ho Chi Minh City, Vietnam" data-ko="1군, 호치민시, 베트남" data-ja="1区、ホーチミン市、ベトナム" data-zhcn="胡志明市第1郡，越南" data-zhtw="胡志明市第1郡，越南">Quận 1, TP. Hồ Chí Minh, Việt Nam</div>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-item-text">
+                                <div class="label">Email</div>
+                                <div class="value"><a href="mailto:hello@saigondesign.vn">hello@saigondesign.vn</a></div>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div class="contact-item-text">
+                                <div class="label">Hotline / Zalo</div>
+                                <div class="value"><a href="tel:0354740168">0354 740 168</a></div>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">💬</div>
+                            <div class="contact-item-text">
+                                <div class="label">Zalo</div>
+                                <div class="value"><a href="https://zalo.me/0354740168" target="_blank">0354 740 168</a></div>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">⏰</div>
+                            <div class="contact-item-text">
+                                <div class="label" data-vi="Giờ làm việc" data-en="Working hours" data-ko="근무 시간" data-ja="営業時間" data-zhcn="工作时间" data-zhtw="工作時間">Giờ làm việc</div>
+                                <div class="value" data-vi="T2-T7: 8:00 - 18:00 (ICT)" data-en="Mon-Sat: 8:00 - 18:00 (ICT)" data-ko="월-토: 8:00 - 18:00 (ICT)" data-ja="月-土: 8:00 - 18:00 (ICT)" data-zhcn="周一至周六: 8:00 - 18:00 (ICT)" data-zhtw="週一至週六: 8:00 - 18:00 (ICT)">T2-T7: 8:00 - 18:00 (ICT)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form reveal">
+                    <form id="contactForm" onsubmit="handleSubmit(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label data-vi="Họ và tên" data-en="Full Name" data-ko="성함" data-ja="お名前" data-zhcn="姓名" data-zhtw="姓名">Họ và tên</label>
+                                <input type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label data-vi="Số điện thoại" data-en="Phone" data-ko="전화번호" data-ja="電話番号" data-zhcn="电话" data-zhtw="電話">Số điện thoại</label>
+                                <input type="tel">
+                            </div>
+                            <div class="form-group">
+                                <label data-vi="Dịch vụ" data-en="Service" data-ko="서비스" data-ja="サービス" data-zhcn="服务" data-zhtw="服務">Dịch vụ</label>
+                                <select>
+                                    <option value="" data-vi="-- Chọn --" data-en="-- Select --" data-ko="-- 선택 --" data-ja="-- 選択 --" data-zhcn="-- 选择 --" data-zhtw="-- 選擇 --">-- Chọn --</option>
+                                    <option value="web" data-vi="Thiết kế website" data-en="Website design" data-ko="웹사이트 디자인" data-ja="ウェブサイトデザイン" data-zhcn="网站设计" data-zhtw="網站設計">Thiết kế website</option>
+                                    <option value="ecommerce" data-vi="Thương mại điện tử" data-en="E-commerce" data-ko="이커머스" data-ja="ECサイト" data-zhcn="电子商务" data-zhtw="電子商務">Thương mại điện tử</option>
+                                    <option value="landing" data-vi="Landing page" data-en="Landing page" data-ko="랜딩 페이지" data-ja="ランディングページ" data-zhcn="落地页" data-zhtw="登陸頁">Landing page</option>
+                                    <option value="seo" data-vi="SEO" data-en="SEO" data-ko="SEO" data-ja="SEO" data-zhcn="SEO" data-zhtw="SEO">SEO</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label data-vi="Ngân sách" data-en="Budget" data-ko="예산" data-ja="予算" data-zhcn="预算" data-zhtw="預算">Ngân sách</label>
+                            <select>
+                                <option value="" data-vi="-- Chọn --" data-en="-- Select --" data-ko="-- 선택 --" data-ja="-- 選択 --" data-zhcn="-- 选择 --" data-zhtw="-- 選擇 --">-- Chọn --</option>
+                                <option value="10m" data-vi="Dưới 10 triệu" data-en="Under 10M₫" data-ko="1,000만₫ 미만" data-ja="1,000万₫未満" data-zhcn="低于1000万₫" data-zhtw="低於1000萬₫">Dưới 10 triệu</option>
+                                <option value="25m" data-vi="10 - 25 triệu" data-en="10M - 25M₫" data-ko="1,000만 - 2,500만₫" data-ja="1,000万 - 2,500万₫" data-zhcn="1000万 - 2500万₫" data-zhtw="1000萬 - 2500萬₫">10 - 25 triệu</option>
+                                <option value="60m" data-vi="25 - 60 triệu" data-en="25M - 60M₫" data-ko="2,500만 - 6,000만₫" data-ja="2,500万 - 6,000万₫" data-zhcn="2500万 - 6000万₫" data-zhtw="2500萬 - 6000萬₫">25 - 60 triệu</option>
+                                <option value="more" data-vi="Trên 60 triệu" data-en="Over 60M₫" data-ko="6,000만₫ 이상" data-ja="6,000万₫以上" data-zhcn="超过6000万₫" data-zhtw="超過6000萬₫">Trên 60 triệu</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label data-vi="Mô tả dự án" data-en="Project Description" data-ko="프로젝트 설명" data-ja="プロジェクト説明" data-zhcn="项目描述" data-zhtw="專案描述">Mô tả dự án</label>
+                            <textarea data-vi-placeholder="Mô tả dự án của bạn..." data-en-placeholder="Describe your project..." data-ko-placeholder="프로젝트를 설명해주세요..." data-ja-placeholder="プロジェクトを説明してください..." data-zhcn-placeholder="描述您的项目..." data-zhtw-placeholder="描述您的專案..." placeholder="Mô tả dự án của bạn..."></textarea>
+                        </div>
+                        <button type="submit" class="form-submit" data-vi="🚀 Gửi Yêu Cầu" data-en="🚀 Send Request" data-ko="🚀 요청 보내기" data-ja="🚀 リクエスト送信" data-zhcn="🚀 发送请求" data-zhtw="🚀 發送請求">🚀 Gửi Yêu Cầu</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <div class="logo-icon">
+                            <span class="logo-d">D</span>
+                            <span class="logo-s">S</span>
+                        </div>
+                        <span>Saigon</span>Design
+                    </a>
+                    <p data-vi="Đối tác công nghệ đáng tin cậy cho doanh nghiệp tại Việt Nam." data-en="Trusted technology partner for businesses in Vietnam." data-ko="베트남 기업의 신뢰할 수 있는 기술 파트너." data-ja="ベトナム企業の信頼できるテクノロジーパートナー。" data-zhcn="越南企业值得信赖的技术合作伙伴。" data-zhtw="越南企業值得信賴的技術合作夥伴。">
+                        Đối tác công nghệ đáng tin cậy cho doanh nghiệp tại Việt Nam.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4 data-vi="Dịch vụ" data-en="Services" data-ko="서비스" data-ja="サービス" data-zhcn="服务" data-zhtw="服務">Dịch vụ</h4>
+                    <ul>
+                        <li><a href="#" data-vi="Thiết kế website" data-en="Web Design" data-ko="웹 디자인" data-ja="ウェブデザイン" data-zhcn="网站设计" data-zhtw="網站設計">Thiết kế website</a></li>
+                        <li><a href="#" data-vi="E-commerce" data-en="E-commerce" data-ko="이커머스" data-ja="ECサイト" data-zhcn="电商" data-zhtw="電商">E-commerce</a></li>
+                        <li><a href="#" data-vi="SEO" data-en="SEO" data-ko="SEO" data-ja="SEO" data-zhcn="SEO" data-zhtw="SEO">SEO</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 data-vi="Công ty" data-en="Company" data-ko="회사" data-ja="会社" data-zhcn="公司" data-zhtw="公司">Công ty</h4>
+                    <ul>
+                        <li><a href="#" data-vi="Về chúng tôi" data-en="About" data-ko="소개" data-ja="概要" data-zhcn="关于我们" data-zhtw="關於我們">Về chúng tôi</a></li>
+                        <li><a href="#" data-vi="Dự án" data-en="Projects" data-ko="프로젝트" data-ja="プロジェクト" data-zhcn="项目" data-zhtw="專案">Dự án</a></li>
+                        <li><a href="#" data-vi="Blog" data-en="Blog" data-ko="블로그" data-ja="ブログ" data-zhcn="博客" data-zhtw="部落格">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 data-vi="Hỗ trợ" data-en="Support" data-ko="지원" data-ja="サポート" data-zhcn="支持" data-zhtw="支援">Hỗ trợ</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#" data-vi="Chính sách" data-en="Privacy" data-ko="개인정보" data-ja="プライバシー" data-zhcn="隐私政策" data-zhtw="隱私政策">Chính sách</a></li>
+                        <li><a href="#" data-vi="Liên hệ" data-en="Contact" data-ko="연락처" data-ja="お問い合わせ" data-zhcn="联系" data-zhtw="聯繫">Liên hệ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Saigon Design. <span data-vi="Mọi quyền được bảo lưu." data-en="All rights reserved." data-ko="모든 권리 보유." data-ja="全著作権所有。" data-zhcn="版权所有。" data-zhtw="版權所有。">Mọi quyền được bảo lưu.</span></p>
+                <div class="footer-socials">
+                    <a href="#" title="Facebook">📘</a>
+                    <a href="https://zalo.me/0354740168" title="Zalo" target="_blank">💬</a>
+                    <a href="#" title="LinkedIn">💼</a>
+                    <a href="#" title="GitHub">🐙</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Buttons -->
+    <div class="zalo-float">
+        <a href="https://zalo.me/0354740168" class="zalo-btn zalo" target="_blank" title="Chat Zalo: 0354 740 168">💬</a>
+        <a href="tel:0354740168" class="zalo-btn phone" title="Gọi ngay: 0354 740 168">📞</a>
+    </div>
+
+    <script>
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        function toggleMobile() {
+            document.getElementById('navLinks').classList.toggle('active');
+            document.getElementById('mobileToggle').classList.toggle('active');
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+                document.getElementById('mobileToggle').classList.remove('active');
+            });
+        });
+
+        // Scroll reveal
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, idx) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), idx * 80);
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Counter animation
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseInt(counter.dataset.target);
+                    const duration = 2000;
+                    const step = target / (duration / 16);
+                    let current = 0;
+                    const update = () => {
+                        current += step;
+                        if (current < target) {
+                            counter.textContent = Math.floor(current);
+                            requestAnimationFrame(update);
+                        } else {
+                            counter.textContent = target;
+                        }
+                    };
+                    update();
+                    counterObserver.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.counter').forEach(c => counterObserver.observe(c));
+
+        // Language switcher
+        let currentLang = 'vi';
+
+        function switchLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                const btnLang = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
+                btn.classList.toggle('active', btnLang === lang);
+            });
+
+            document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+                const text = el.getAttribute('data-' + lang);
+                if (text) {
+                    if (el.tagName === 'OPTION') {
+                        el.textContent = text;
+                    } else if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        // skip
+                    } else {
+                        el.innerHTML = text;
+                    }
+                }
+            });
+
+            // Update placeholders
+            document.querySelectorAll('[data-' + lang + '-placeholder]').forEach(el => {
+                const ph = el.getAttribute('data-' + lang + '-placeholder');
+                if (ph) el.placeholder = ph;
+            });
+
+            // Update html lang
+            const langMap = { vi: 'vi', en: 'en', ko: 'ko', ja: 'ja', zhcn: 'zh-CN', zhtw: 'zh-TW' };
+            document.documentElement.lang = langMap[lang] || 'vi';
+        }
+
+        // Form submission
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('.form-submit');
+            const msgs = {
+                vi: '✅ Đã gửi thành công!',
+                en: '✅ Sent successfully!',
+                ko: '✅ 성공적으로 전송!',
+                ja: '✅ 送信完了！',
+                zhcn: '✅ 发送成功！',
+                zhtw: '✅ 發送成功！'
+            };
+            const originalText = btn.textContent;
+            btn.textContent = msgs[currentLang];
+            btn.style.background = 'linear-gradient(135deg, #00CEC9 0%, #00b894 100%)';
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+                e.target.reset();
+            }, 3000);
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.getBoundingClientRect().top + window.pageYOffset - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Parallax on hero mockup
+        document.addEventListener('mousemove', (e) => {
+            const mockup = document.querySelector('.mockup-browser');
+            if (!mockup || window.innerWidth <= 768) return;
+            const rect = mockup.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = (e.clientX - cx) / 60;
+            const dy = (e.clientY - cy) / 60;
+            mockup.style.transform = `perspective(1000px) rotateY(${-5 + dx * 0.3}deg) rotateX(${2 + dy * 0.3}deg)`;
+        });
+    </script>
+</body>
+</html>
+
